@@ -25,18 +25,20 @@ from scrapy import log
 
 class RandomProxy(object):
     def __init__(self, settings):
-        self.proxy_list = settings.get('PROXY_LIST')
-        f = open(self.proxy_list)
+        #self.proxy_list = settings.get('PROXY_LIST')
+        #f = open(self.proxy_list)
+          
+        f = open("path to  proxy list file")
 
         self.proxies = {}
         for l in f.readlines():
             parts = re.match('(\w+://)(\w+:\w+@)?(.+)', l)
 
             # Cut trailing @
-            if parts[1]:
-                parts[1] = parts[1][:-1]
+            if parts.group(1):
+                #parts[1] = parts[1][:-1]
 
-            self.proxies[parts[0] + parts[2]] = parts[1]
+            self.proxies[part.group(0) + parts.group(2)] = parts.group(1)[:-1]
 
         f.close()
 
